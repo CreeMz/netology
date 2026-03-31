@@ -10,6 +10,7 @@ networks:
         - subnet: 10.5.0.0/16
 services:
   trofimovai-netology-prometheus:
+    container name: trofimovai-netology-prometheus
     image: prom/prometheus:latest
     volumes:
       - ./prometheus/:/etc/prometheus/
