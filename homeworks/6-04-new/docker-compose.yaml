@@ -25,7 +25,7 @@ services:
     links:
       - pushgateway:pushgateway
     depends_on:
-      - pushgateway
+      - trofimovai-netology-pushgateway
       
 
   trofimovai-netology-pushgateway:
