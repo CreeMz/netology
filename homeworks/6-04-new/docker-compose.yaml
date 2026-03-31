@@ -8,8 +8,9 @@ networks:
     ipam:
       config:
         - subnet: 10.5.0.0/16
+
 services:
-  trofimovai-netology-prometheus:
+  prometheus:
     container_name: trofimovai-netology-prometheus
     image: prom/prometheus:latest
     volumes:
@@ -25,10 +26,10 @@ services:
     links:
       - pushgateway:pushgateway
     depends_on:
-      - trofimovai-netology-pushgateway
+      - pushgateway
       
 
-  trofimovai-netology-pushgateway:
+  pushgateway:
     container_name: trofimovai-netology-pushgateway
     image: prom/pushgateway
     restart: always
