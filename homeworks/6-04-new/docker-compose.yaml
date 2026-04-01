@@ -30,6 +30,11 @@ services:
       pushgateway:
         condition: service_healthy  
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:9090/-/healthy"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
       
 
   pushgateway:
