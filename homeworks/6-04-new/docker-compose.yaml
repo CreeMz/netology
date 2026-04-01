@@ -26,8 +26,6 @@ services:
       - 9090:9090
     networks:
       - trofimovai-my-netology-hw
-    links:
-      - pushgateway:pushgateway
     depends_on:
       pushgateway:
         condition: service_healthy  
