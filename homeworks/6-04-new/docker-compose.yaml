@@ -27,19 +27,19 @@ services:
     links:
       - pushgateway:pushgateway
     depends_on:
-      - pushgateway
+      pushgateway:
+        condition: service_healthy  
+    restart: unless-stopped
       
 
   pushgateway:
     container_name: trofimovai-netology-pushgateway
     image: prom/pushgateway
-    restart: always
-    expose:
-     - 9091
     ports:
       - "9091:9091"
     networks:
       - trofimovai-my-netology-hw
+    restart: unless-stopped
 
   grafana:
     container_name: trofimovai-netology-grafana
