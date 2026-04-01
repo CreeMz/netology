@@ -45,7 +45,8 @@ services:
     container_name: trofimovai-netology-grafana
     image: grafana/grafana
     depends_on:
-      - prometheus
+      prometheus:
+        condition: service_healthy
     ports:
       - 80:3000
     volumes:
@@ -54,4 +55,4 @@ services:
       - ./grafana/config.ini
     networks:
       - trofimovai-my-netology-hw
-    restart: always
+    restart: unless-stopped
