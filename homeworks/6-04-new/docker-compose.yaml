@@ -44,7 +44,6 @@ services:
   grafana:
     container_name: trofimovai-netology-grafana
     image: grafana/grafana
-    user: "trofimovai"
     depends_on:
       - prometheus
     ports:
