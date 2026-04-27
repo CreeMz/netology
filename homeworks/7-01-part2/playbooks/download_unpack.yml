@@ -1,0 +1,28 @@
+---
+- name: Download and unpack archive
+  hosts: all
+  become: yes
+  vars:
+    download_url: "https://archive.apache.org/dist/kafka/3.6.0/kafka_2.13-3.6.0.tgz"
+    archive_name: "kafka.tgz"
+    extract_dir: "/opt/kafka"
+
+  tasks:
+    - name: Create directory for extraction
+      ansible.builtin.file:
+        path: "{{ extract_dir }}"
+        state: directory
+        mode: '0755'
+
+    - name: Download Kafka archive
+      ansible.builtin.get_url:
+        url: "{{ download_url }}"
+        dest: "/tmp/{{ archive_name }}"
+        mode: '0644'
+
+    - name: Extract archive
+      ansible.builtin.unarchive:
+        src: "/tmp/{{ archive_name }}"
+        dest: "{{ extract_dir }}"
+        remote_src: yes
+        extra_opts: [--strip-components=1]
