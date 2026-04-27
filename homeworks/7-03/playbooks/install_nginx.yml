@@ -1,0 +1,72 @@
+---
+- name: Install and configure Nginx on web servers
+  hosts: web_servers
+  become: yes
+
+  tasks:
+    # Обновление кэша пакетов
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    # Установка Nginx
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+
+    # Создание кастомной index.html
+    - name: Create custom index page
+      copy:
+        content: |
+          <!DOCTYPE html>
+          <html>
+          <head>
+              <title>Welcome to {{ ansible_hostname }}</title>
+              <style>
+                  body {
+                      font-family: monospace;
+                      margin: 40px;
+                      background: #2c3e50;
+                      color: #ecf0f1;
+                  }
+                  .container {
+                      background: #34495e;
+                      padding: 20px;
+                      border-radius: 10px;
+                      max-width: 600px;
+                      margin: auto;
+                  }
+                  h1 { color: #3498db; }
+                  .info { margin: 15px 0; }
+                  .label { font-weight: bold; color: #e74c3c; }
+              </style>
+          </head>
+          <body>
+        dest: /var/www/html/index.html
+        mode: '0644'
+      notify: restart nginx
+
+    # Запуск и включение Nginx
+    - name: Start and enable Nginx
+      systemd:
+        name: nginx
+        state: started
+        enabled: yes
+
+    # Проверка, что Nginx работает
+    - name: Check Nginx is running
+      uri:
+        url: "http://{{ ansible_default_ipv4.address }}"
+        status_code: 200
+      register: result
+      until: result.status == 200
+      retries: 3
+      delay: 5
+
+  handlers:
+    - name: restart nginx
+      systemd:
+        name: nginx
+        state: restarted
