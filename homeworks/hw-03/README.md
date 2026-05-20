@@ -16,4 +16,4 @@ Items созданные в новом тимплейте:
 
 Создание дашборда, где используется новый тимплейт:
 
-![Мой дашборд](/homeworks/hw-03/images/mydashboard.png)
+![Мой дашборд](/homeworks/hw-03/images/mydashboar.png)
