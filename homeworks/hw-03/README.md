@@ -2,7 +2,7 @@
 
 ## Задание 1
 
-Items созданные в новом тимплейте:
+Items созданные в новом тимплейте и сам teamplate:
 
 ![Скриншот тимплейта с items](/homeworks/hw-03/images/teamplte-items.png)
 
